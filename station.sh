@@ -48,6 +48,21 @@ EOS
   chown -R ai:ai "$HOME_AI/.vnc"
   ln -sfn "$SCRATCH/output" "$HOME_AI/Desktop/Video-AI"
   ln -sfn "$SCRATCH/input" "$HOME_AI/Desktop/Input-AI"
+  cat > "$HOME_AI/Desktop/LU.desktop" <<'EOS'
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=LU - Locally Uncensored
+Comment=AI workspace
+Exec=locally-uncensored
+Icon=applications-science
+Terminal=false
+Categories=Science;Utility;
+StartupNotify=true
+EOS
+  chmod 755 "$HOME_AI/Desktop/LU.desktop"
+  chown ai:ai "$HOME_AI/Desktop/LU.desktop"
+
   rsync -r --ignore-existing "$BASE/output/" "$SCRATCH/output/"
   rsync -r --ignore-existing "$BASE/input/" "$SCRATCH/input/"
   cat > /opt/ComfyUI/extra_model_paths.yaml <<EOS
