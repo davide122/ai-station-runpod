@@ -21,6 +21,9 @@ init() {
     fi
     touch "$SCRATCH/.restored"
   fi
+  mkdir -p /tmp/runtime-ai
+  chmod 700 /tmp/runtime-ai
+  chown ai:ai /tmp/runtime-ai
   chown -R ai:ai "$HOME_AI" "$SCRATCH"
   cat > "$HOME_AI/.vnc/xstartup" <<'EOS'
 #!/bin/sh
