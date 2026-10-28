@@ -19,6 +19,9 @@ init() {
     if [ -s "$BASE/backups/home-ai.tar.gz" ]; then
       tar -xzf "$BASE/backups/home-ai.tar.gz" -C "$HOME_AI" --no-same-owner
     fi
+    if [ -s "$BASE/backups/comfy-user.tar.gz" ]; then
+      tar -xzf "$BASE/backups/comfy-user.tar.gz" -C "$SCRATCH/comfy-user" --no-same-owner
+    fi
     touch "$SCRATCH/.restored"
   fi
   mkdir -p /tmp/runtime-ai
@@ -92,6 +95,8 @@ backup() {
     set -e
     tar -czf "$1/backups/home-ai.tar.gz.part" -C "$2" .config .local .vnc Desktop
     mv "$1/backups/home-ai.tar.gz.part" "$1/backups/home-ai.tar.gz"
+    tar -czf "$1/backups/comfy-user.tar.gz.part" -C "$3/comfy-user" .
+    mv "$1/backups/comfy-user.tar.gz.part" "$1/backups/comfy-user.tar.gz"
     rsync -r "$3/output/" "$1/output/"
     rsync -r "$3/input/" "$1/input/"
   ' _ "$BASE" "$HOME_AI" "$SCRATCH"
